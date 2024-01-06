@@ -5568,6 +5568,11 @@ react-native-codegen@0.71.6:
     jscodeshift "^0.14.0"
     nullthrows "^1.1.1"
 
+react-native-config@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-1.5.1.tgz#73c94f511493e9b7ff9350cdf351d203a1b05acc"
+  integrity sha512-g1xNgt1tV95FCX+iWz6YJonxXkQX0GdD3fB8xQtR1GUBEqweB9zMROW77gi2TygmYmUkBI7LU4pES+zcTyK4HA==
+
 react-native@0.73.1:
   version "0.73.1"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.73.1.tgz#5eafaa7e54feeab8b55e8b8e4efc4d21052a4fff"
