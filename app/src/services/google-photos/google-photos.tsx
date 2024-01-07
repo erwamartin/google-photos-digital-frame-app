@@ -56,6 +56,69 @@ class GooglePhotos {
     }
   }
 
+  async getAlbum(id: string) {
+    try {
+      if (!this.googlePhotosApi) {
+        console.error('Error in GooglePhotos.getAlbum: googlePhotosApi is null');
+        return null;
+      }
+
+      const response = await this.googlePhotosApi.albums.get(id) as any;
+      const apiAlbum = response?.data;
+      if (!apiAlbum) {
+        console.error('Error in GooglePhotos.getAlbum: cannot find album', response);
+        return null;
+      }
+
+      return apiAlbum;
+    } catch (error) {
+      console.error('Error in GooglePhotos.getAlbum: ', error);
+      throw error;
+    }
+  }
+
+  async getAlbumPhotos(id: string, length: number = 10, startFromToken: boolean = false) {
+    try {
+      if (!this.googlePhotosApi) {
+        console.error('Error in GooglePhotos.getAlbumPhotos: googlePhotosApi is null');
+        return [];
+      }
+
+      const apiPhotos: any[] = [];
+      let nextPageToken = startFromToken ? this.currentToken : '';
+      while (apiPhotos.length < length) {
+        const response = await this.googlePhotosApi.mediaItems.search(
+          id,
+          length >= maxAlbumsPerQuery ? maxAlbumsPerQuery : length,
+          nextPageToken
+        ) as any;
+        const apiPhotosResponse = response?.data?.mediaItems;
+        if (!apiPhotosResponse) {
+          console.error('Error in GooglePhotos.getAlbumPhotos: cannot find photos', response);
+          return [];
+        }
+
+        if (apiPhotosResponse.length === 0) {
+          break;
+        }
+
+        // Prevent duplicates
+        for (const apiPhoto of apiPhotosResponse) {
+          if (!apiPhotos.find((photo) => photo.id === apiPhoto.id)) {
+            console.log('Adding photo: ', apiPhoto);
+            apiPhotos.push(apiPhoto);
+          }
+        }
+        nextPageToken = response?.data?.nextPageToken;
+      }
+
+      return apiPhotos;
+    } catch (error) {
+      console.error('Error in GooglePhotos.getAlbumPhotos: ', error);
+      throw error;
+    }
+  }
+
 }
 
 const GooglePhotosInstance = new GooglePhotos();

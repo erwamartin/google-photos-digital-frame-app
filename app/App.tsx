@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { SafeAreaView } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createNavigationContainerRef } from '@react-navigation/native';
@@ -9,7 +10,7 @@ import GooglePhotos from './src/services/google-photos';
 import HomeScreen from './src/screens/HomeScreen/HomeScreen';
 import DashboardScreen from './src/screens/DashboardScreen/DashboardScreen';
 import AlbumSelectionScreen from './src/screens/AlbumSelectionScreen';
-import { SafeAreaView } from 'react-native';
+import SlideshowScreen from './src/screens/SlideshowScreen';
 
 const Stack = createNativeStackNavigator();
 const navigationRef = createNavigationContainerRef();
@@ -56,6 +57,10 @@ const App = () => {
           <Stack.Screen
             name="AlbumSelection"
             component={AlbumSelectionScreen}
+          />
+          <Stack.Screen
+            name="Slideshow"
+            component={SlideshowScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>

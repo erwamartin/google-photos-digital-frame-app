@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from "react-native";
 import GooglePhotos from "../../services/google-photos";
+import MemoryStorage from "../../services/memory-storage";
 
+type PropsType = {
+  navigation: any
+}
 
-function AlbumSelectionScreen() {
+function AlbumSelectionScreen({ navigation }: PropsType) {
   const [albums, setAlbums] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
 
@@ -19,6 +23,12 @@ function AlbumSelectionScreen() {
     const apiAlbums = await GooglePhotos.getAlbums(20, !isFirstRequest) as any;
     setAlbums(apiAlbums);
     setIsFetching(false);
+  }
+
+  async function saveSelectedAlbum(id: string) {
+    console.log('Selected album: ', id);
+    await MemoryStorage.set('selectedAlbumId', id);
+    navigation.navigate('Dashboard' as never, { selectedAlbumId: id });
   }
 
   useEffect(() => {
@@ -60,7 +70,7 @@ function AlbumSelectionScreen() {
             return (
               <TouchableOpacity
                 onPress={() => {
-                  
+                  saveSelectedAlbum(item.id);
                 }}
                 style={{
                   width: '100%',
@@ -81,6 +91,7 @@ function AlbumSelectionScreen() {
           onEndReached={() => {
             getGooglePhotosAlbums();
           }}
+          
           style={{
             width: '100%'
           }}
