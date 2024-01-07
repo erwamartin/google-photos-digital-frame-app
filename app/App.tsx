@@ -1,22 +1,96 @@
-import { useState } from 'react';
-import { View, Pressable } from 'react-native';
+import React, { useEffect } from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNavigationContainerRef } from '@react-navigation/native';
+
+import GoogleSignin from './src/services/google-login';
+import GooglePhotos from './src/services/google-photos';
+
+import HomeScreen from './src/screens/HomeScreen/HomeScreen';
+import DashboardScreen from './src/screens/DashboardScreen/DashboardScreen';
+import AlbumSelectionScreen from './src/screens/AlbumSelectionScreen';
+import { SafeAreaView } from 'react-native';
+
+const Stack = createNativeStackNavigator();
+const navigationRef = createNavigationContainerRef();
+
+const App = () => {
+  async function initLogin() {
+    GoogleSignin.onLogin(async () => {
+      const { accessToken } = await GoogleSignin.getTokens();
+      await GooglePhotos.init(accessToken);
+
+      navigationRef.navigate('Dashboard' as never);
+    });
+
+    await GoogleSignin.init([
+      'https://www.googleapis.com/auth/photoslibrary.readonly',
+    ]);
+
+    // const isSignedIn = await GoogleSignin.isSignedIn();
+    // if (isSignedIn) {
+    //   console.log('User is already signed in.');
+
+    //   navigationRef.navigate('Dashboard' as never);
+    // } else {
+    //   console.log('User is not signed in.');
+    // }
+  }
+
+  useEffect(() => {
+    initLogin();
+  }, []);
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <NavigationContainer ref={navigationRef}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+          />
+          <Stack.Screen 
+            name="Dashboard" 
+            component={DashboardScreen}
+          />
+          <Stack.Screen
+            name="AlbumSelection"
+            component={AlbumSelectionScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
+  );
+};
+
+export default App;
+
+/*
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import config from "react-native-config";
 
 import { 
   GoogleSignin, 
   GoogleSigninButton
 } from '@react-native-google-signin/google-signin';
-import config from "react-native-config";
-import React from 'react';
+
+const Photos = require('googlephotos-api');
 
 GoogleSignin.configure({
 	iosClientId: config.GOOGLE_IOS_CLIENT_ID,
-	scopes: ['profile', 'email'],
+	scopes: ['profile', 'email', Photos.Scopes.READ_ONLY],
 });
 
 const GoogleLogin = async () => {
-	await GoogleSignin.hasPlayServices();
-	const userInfo = await GoogleSignin.signIn();
-	return userInfo;
+	try {
+		await GoogleSignin.hasPlayServices();
+		const userInfo = await GoogleSignin.signIn();
+		return userInfo;
+	} catch (error) {
+		console.error('Error in GoogleLogin: ', error);
+		throw error;
+	}
 };
 
 export default function App() {
@@ -29,13 +103,23 @@ export default function App() {
 			const response = await GoogleLogin();
 			const { idToken, user } = response;
 
-      console.log(user);
-      console.log(idToken);
+			console.log(Object.keys(response));
+			console.log(user);
+			console.log(idToken);
 
-			if (idToken) {
-				
+			const tokens = await GoogleSignin.getTokens();
+			console.log(tokens);
+			const accessToken = tokens.accessToken;
+
+			if (accessToken) {
+				console.log('Starting photos');
+				const photos = new Photos(accessToken);
+				console.log('photos: ', photos);
+				const albums = await photos.albums.list();
+				console.log('photos: ', albums);
 			}
 		} catch (apiError: any) {
+			console.error(apiError);
 			setError(
 				apiError?.response?.data?.error?.message || 'Something went wrong'
 			);
@@ -55,6 +139,8 @@ export default function App() {
 		</View>
 	);
 }
+
+*/
 
 // /**
 //  * Sample React Native App
