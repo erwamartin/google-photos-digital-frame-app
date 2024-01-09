@@ -60,7 +60,7 @@ function DashboardScreen({ route, navigation }: PropsType) {
 
       <Text
         style={{
-          fontSize: 20,
+          fontSize: 50,
           fontWeight: "bold",
           marginBottom: 20
         }}

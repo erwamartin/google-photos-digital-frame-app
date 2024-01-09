@@ -57,7 +57,7 @@ class GoogleLogin {
       this._onLoginCallback?.call(this);
     } catch (error) {
       console.error('Error in GoogleLogin.signIn: ', error);
-      throw error;
+      // throw error;
     }
   }
 

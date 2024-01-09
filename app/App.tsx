@@ -18,10 +18,14 @@ const navigationRef = createNavigationContainerRef();
 const App = () => {
   async function initLogin() {
     GoogleSignin.onLogin(async () => {
-      const { accessToken } = await GoogleSignin.getTokens();
-      await GooglePhotos.init(accessToken);
+      try {
+        const { accessToken } = await GoogleSignin.getTokens();
+        await GooglePhotos.init(accessToken);
 
-      navigationRef.navigate('Dashboard' as never);
+        navigationRef.navigate('Dashboard' as never);
+      } catch (error) {
+        console.log('Error in App.initLogin: ', error);
+      }
     });
 
     await GoogleSignin.init([

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, Text, TouchableWithoutFeedback, View, useWindowDimensions } from 'react-native';
+import { ActivityIndicator, Image, StatusBar, Text, TouchableWithoutFeedback, View, useWindowDimensions } from 'react-native';
 
 import MemoryStorage from '../../services/memory-storage';
 import GooglePhotos from '../../services/google-photos';
@@ -49,43 +49,46 @@ function SlideshowScreen({ navigation }: PropsType) {
   const imageUrl = photos[currentPhotoIndex] ? (photos[currentPhotoIndex] as any).baseUrl + '=w' + (imageWidth * 4) + '-h' + (imageHeight * 4) : null;
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: '#ffffff',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      {isLoadingPhotos && (
-        <ActivityIndicator />
-      )}
+    <>
+      <StatusBar hidden />
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#ffffff',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {isLoadingPhotos && (
+          <ActivityIndicator />
+        )}
 
-      {!isLoadingPhotos && photos.length === 0 && (
-        <View>
-          <Text>No photos found.</Text>
-        </View>
-      )}
+        {!isLoadingPhotos && photos.length === 0 && (
+          <View>
+            <Text>No photos found.</Text>
+          </View>
+        )}
 
-      {!isLoadingPhotos && imageUrl && (
-        <TouchableWithoutFeedback 
-          onPress={navigateToDashboard}
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Image
+        {!isLoadingPhotos && imageUrl && (
+          <TouchableWithoutFeedback 
+            onPress={navigateToDashboard}
             style={{
-              width: imageWidth,
-              height: imageHeight,
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
-            source={{ uri: imageUrl }}
-          />
-        </TouchableWithoutFeedback>
-      )}
-    </View>
+          >
+            <Image
+              style={{
+                width: imageWidth,
+                height: imageHeight,
+              }}
+              source={{ uri: imageUrl }}
+            />
+          </TouchableWithoutFeedback>
+        )}
+      </View>
+    </>
   );
 };
 
