@@ -5,6 +5,9 @@ PODS:
   - AppAuth/Core (1.6.2)
   - AppAuth/ExternalUserAgent (1.6.2):
     - AppAuth/Core
+  - BlastedImage (0.0.13):
+    - React-Core
+    - SDWebImage
   - boost (1.83.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -1140,10 +1143,14 @@ PODS:
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
+  - SDWebImage (5.18.8):
+    - SDWebImage/Core (= 5.18.8)
+  - SDWebImage/Core (5.18.8)
   - SocketRocket (0.6.1)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
+  - BlastedImage (from `../node_modules/react-native-blasted-image`)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -1241,9 +1248,12 @@ SPEC REPOS:
     - GTMSessionFetcher
     - libevent
     - OpenSSL-Universal
+    - SDWebImage
     - SocketRocket
 
 EXTERNAL SOURCES:
+  BlastedImage:
+    :path: "../node_modules/react-native-blasted-image"
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   DoubleConversion:
@@ -1354,6 +1364,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
+  BlastedImage: 7dd925da7db9dcf1120efc0009bad5492e843b1e
   boost: 26fad476bfa736552bbfa698a06cc530475c1505
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
@@ -1421,6 +1432,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 618d03a5f52fbccb3d7010076bc54712844c18ef
   RNGoogleSignin: fc408799f1990a12497a32f64280c0fe353ffcc1
   RNScreens: b582cb834dc4133307562e930e8fa914b8c04ef2
+  SDWebImage: a81bbb3ba4ea5f810f4069c68727cb118467a04a
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 4f53dc50008d626fa679c7a1cb4bed898f8c0bde
 

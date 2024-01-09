@@ -5701,6 +5701,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-blasted-image@^0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/react-native-blasted-image/-/react-native-blasted-image-0.0.13.tgz#eb377307a07f886dc21ee128f17b80842d919f3b"
+  integrity sha512-0OeaXORXiOQdTUOK/n05fFsexvPo6XDr5i9Ii3UgXKrmzJrMyxm7ihCxIhcnFtmcQp21E9fFOZWBALTpzPRHyw==
+
 react-native-codegen@0.71.6:
   version "0.71.6"
   resolved "https://registry.yarnpkg.com/react-native-codegen/-/react-native-codegen-0.71.6.tgz#481a610c3af9135b09e1e031da032e7270e0cc1b"
