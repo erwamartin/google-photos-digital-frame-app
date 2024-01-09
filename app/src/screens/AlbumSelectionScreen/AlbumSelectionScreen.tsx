@@ -46,13 +46,13 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
     >
       <Text
         style={{
-          fontSize: 20,
+          fontSize: 30,
           fontWeight: "bold",
           paddingTop: 20,
           paddingBottom: 20
         }}
         >
-        Album Selection Screen
+        Select an album
       </Text>
 
       {isFetching && (
@@ -79,7 +79,13 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
                   borderTopColor: '#dddddd'
                 }}
               >
-                <Text>{item.title}</Text>
+                <Text
+                  style={{
+                    fontSize: 20,
+                  }}
+                >
+                  {item.title}
+                </Text>
               </TouchableOpacity>
           )}}
           keyExtractor={(item) => item.id}

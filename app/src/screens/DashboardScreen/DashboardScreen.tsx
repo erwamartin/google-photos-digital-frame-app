@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Button, Text, View } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Button, Text, View } from 'react-native';
 
-import MemoryStorage from "../../services/memory-storage";
-import GooglePhotos from "../../services/google-photos";
+import MemoryStorage from '../../services/memory-storage';
+import GooglePhotos from '../../services/google-photos';
 
 type PropsType = {
   navigation: any,
@@ -14,7 +14,7 @@ function DashboardScreen({ route, navigation }: PropsType) {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
 
   function navigateToAlbumSelection() {
-    navigation.navigate("AlbumSelection" as never);
+    navigation.navigate('AlbumSelection' as never);
   }
 
   async function getSelectedAlbum() {
@@ -34,7 +34,7 @@ function DashboardScreen({ route, navigation }: PropsType) {
   }
 
   function playSlideshow() {
-    navigation.navigate("Slideshow" as never);
+    navigation.navigate('Slideshow' as never);
   }
 
   useEffect(() => {
@@ -52,16 +52,16 @@ function DashboardScreen({ route, navigation }: PropsType) {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#ffffff",
-        alignItems: "center",
-        justifyContent: "center",
+        backgroundColor: '#ffffff',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
 
       <Text
         style={{
           fontSize: 50,
-          fontWeight: "bold",
+          fontWeight: 'bold',
           marginBottom: 20
         }}
         >
@@ -81,7 +81,7 @@ function DashboardScreen({ route, navigation }: PropsType) {
           >
             Please select an album to display photos from.
           </Text>
-          <Button title="Select Album" onPress={navigateToAlbumSelection} />
+          <Button title='Select Album' onPress={navigateToAlbumSelection} />
         </>
       )}
 
@@ -95,12 +95,12 @@ function DashboardScreen({ route, navigation }: PropsType) {
           >
             Selected Album: {(selectedAlbum as any).title}
           </Text>
-          <Button title="Change Album" onPress={navigateToAlbumSelection} />
+          <Button title='Change Album' onPress={navigateToAlbumSelection} />
         </>
       )}
 
       {!isLoadingSelectedAlbum && selectedAlbum !== null && (
-        <Button title="Play Slideshow" onPress={playSlideshow} />
+        <Button title='Play Slideshow' onPress={playSlideshow} />
       )}
     </View>
   );

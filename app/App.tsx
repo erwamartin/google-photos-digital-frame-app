@@ -8,6 +8,7 @@ import GoogleSignin from './src/services/google-login';
 import GooglePhotos from './src/services/google-photos';
 
 import HomeScreen from './src/screens/HomeScreen/HomeScreen';
+import OnboardingScreen from './src/screens/OnboardingScreen/OnboardingScreen';
 import DashboardScreen from './src/screens/DashboardScreen/DashboardScreen';
 import AlbumSelectionScreen from './src/screens/AlbumSelectionScreen';
 import SlideshowScreen from './src/screens/SlideshowScreen';
@@ -22,7 +23,7 @@ const App = () => {
         const { accessToken } = await GoogleSignin.getTokens();
         await GooglePhotos.init(accessToken);
 
-        navigationRef.navigate('Dashboard' as never);
+        navigationRef.navigate('Onboarding' as never);
       } catch (error) {
         console.log('Error in App.initLogin: ', error);
       }
@@ -44,6 +45,10 @@ const App = () => {
           <Stack.Screen
             name="Home"
             component={HomeScreen}
+          />
+          <Stack.Screen
+            name="Onboarding"
+            component={OnboardingScreen}
           />
           <Stack.Screen 
             name="Dashboard" 
