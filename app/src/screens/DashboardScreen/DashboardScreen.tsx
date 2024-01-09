@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Button, Dimensions, Image, Pressable, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Button, Pressable, Text, View, useWindowDimensions } from 'react-native';
 import BlastedImage from 'react-native-blasted-image';
 
 import MemoryStorage from '../../services/memory-storage';
@@ -15,7 +15,9 @@ function DashboardScreen({ route, navigation }: PropsType) {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [selectedAlbumPreviewImages, setSelectedAlbumPreviewImages] = useState([] as any[]);
 
-  const previewImageWidth = Dimensions.get('window').width * 0.3 > 500 ? 500 : Dimensions.get('window').width * 0.3;
+  const { width: screenWidth } = useWindowDimensions();
+
+  const previewImageWidth = screenWidth * 0.3 > 500 ? 500 : screenWidth * 0.3;
   
   function navigateToAlbumSelection() {
     navigation.navigate('AlbumSelection' as never);
@@ -82,7 +84,7 @@ function DashboardScreen({ route, navigation }: PropsType) {
 
     const middleIndex = Math.floor(selectedAlbumPreviewImages.length / 2);
     const offset = index - middleIndex;
-    const leftPosition = Dimensions.get('window').width / 2 - computeImageSize(index) / 2 + (offset * (previewImageWidth * 0.3));
+    const leftPosition = screenWidth / 2 - computeImageSize(index) / 2 + (offset * (previewImageWidth * 0.3));
     return leftPosition;
   }
 
@@ -124,7 +126,6 @@ function DashboardScreen({ route, navigation }: PropsType) {
       style={{
         flex: 1,
         backgroundColor: '#ffffff',
-        // alignItems: 'center',
         justifyContent: 'center',
       }}
     >
@@ -135,9 +136,8 @@ function DashboardScreen({ route, navigation }: PropsType) {
             style={{
               flexDirection: 'row',
               flexWrap: 'wrap',
-              justifyContent: 'center',
               alignItems: 'center',
-              width: '100%',
+              width: screenWidth,
               height: previewImageWidth * 1.1,
             }}
           >
