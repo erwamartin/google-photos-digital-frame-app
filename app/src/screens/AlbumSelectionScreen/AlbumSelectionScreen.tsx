@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from "react-native";
-import GooglePhotos from "../../services/google-photos";
-import MemoryStorage from "../../services/memory-storage";
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
+
+import * as screens from '../../screens';
+
+import GooglePhotos from '../../services/google-photos';
+import MemoryStorage from '../../services/memory-storage';
 
 type PropsType = {
   navigation: any
@@ -28,7 +31,7 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
   async function saveSelectedAlbum(id: string) {
     console.log('Selected album: ', id);
     await MemoryStorage.set('selectedAlbumId', id);
-    navigation.navigate('Dashboard' as never, { selectedAlbumId: id });
+    navigation.navigate(screens.DashboardScreen.name as never, { selectedAlbumId: id });
   }
 
   useEffect(() => {
@@ -39,15 +42,15 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#ffffff",
-        alignItems: "center",
-        justifyContent: "flex-start",
+        backgroundColor: '#ffffff',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
       }}
     >
       <Text
         style={{
           fontSize: 30,
-          fontWeight: "bold",
+          fontWeight: 'bold',
           paddingTop: 20,
           paddingBottom: 20
         }}
@@ -108,3 +111,5 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
 };
 
 export default AlbumSelectionScreen;
+
+export const name = 'AlbumSelectionScreen';

@@ -108,3 +108,5 @@ function HomeScreen({ navigation }: PropsType) {
 };
 
 export default HomeScreen;
+
+export const name = 'HomeScreen';

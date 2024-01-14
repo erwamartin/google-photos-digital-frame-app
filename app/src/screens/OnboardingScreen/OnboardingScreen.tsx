@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Button, Dimensions, Image, Pressable, Text, View } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Button, Dimensions, Image, Pressable, Text, View } from 'react-native';
 
-import MemoryStorage from "../../services/memory-storage";
+import * as screens from '../../screens';
+
+import MemoryStorage from '../../services/memory-storage';
 
 type PropsType = {
   navigation: any,
@@ -12,11 +14,11 @@ function OnboardingScreen({ route, navigation }: PropsType) {
   const [displayOnboarding, setDisplayOnboarding] = useState(false);
 
   function navigateToDashboard() {
-    navigation.navigate('Dashboard' as never);
+    navigation.navigate(screens.DashboardScreen.name as never);
   }
 
   function navigateToAlbumSelection() {
-    navigation.navigate('AlbumSelection' as never);
+    navigation.navigate(screens.AlbumSelectionScreen.name as never);
   }
 
   async function getSelectedAlbum() {
@@ -40,9 +42,9 @@ function OnboardingScreen({ route, navigation }: PropsType) {
       <View
         style={{
           flex: 1,
-          backgroundColor: "#ffffff",
-          alignItems: "center",
-          justifyContent: "center",
+          backgroundColor: '#ffffff',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <ActivityIndicator />
@@ -62,7 +64,7 @@ function OnboardingScreen({ route, navigation }: PropsType) {
     >
       <Image 
         source={require('../../../assets/onboarding/select-photos-icon.png')}
-        resizeMode="contain"
+        resizeMode='contain'
         style={{
           width: topIconImageWidth,
           height: topIconImageWidth,
@@ -114,3 +116,5 @@ function OnboardingScreen({ route, navigation }: PropsType) {
 };
 
 export default OnboardingScreen;
+
+export const name = 'Onboarding';
