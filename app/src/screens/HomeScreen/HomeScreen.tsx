@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Alert, Dimensions, Image, Text, TouchableHighlight, TouchableOpacity, View, useWindowDimensions } from 'react-native';
-import GoogleSignin, { GoogleSigninButton } from '../../services/google-login';
+import { Alert, Image, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import GoogleSignin from '../../services/google-login';
 
 import { styleHelpers } from '../../styles';
 import styles from './styles';
@@ -108,5 +108,3 @@ function HomeScreen({ navigation }: PropsType) {
 };
 
 export default HomeScreen;
-
-export const name = 'HomeScreen';

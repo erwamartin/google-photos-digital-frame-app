@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, StatusBar, Text, TouchableWithoutFeedback, View, useWindowDimensions } from 'react-native';
 
-import * as screens from '../../screens';
+import screenNames from '../../screens/names';
 
 import MemoryStorage from '../../services/memory-storage';
 import GooglePhotos from '../../services/google-photos';
@@ -24,7 +24,7 @@ function SlideshowScreen({ navigation }: PropsType) {
   }
 
   function navigateToDashboard() {
-    navigation.navigate(screens.DashboardScreen.name as never);
+    navigation.navigate(screenNames.DashboardScreen as never);
   }
 
   useEffect(() => {
@@ -95,5 +95,3 @@ function SlideshowScreen({ navigation }: PropsType) {
 };
 
 export default SlideshowScreen;
-
-export const name = 'Slideshow';

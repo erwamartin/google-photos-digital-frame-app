@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Button, Dimensions, Image, Pressable, Text, View } from 'react-native';
+import { ActivityIndicator, Dimensions, Image, Pressable, Text, View } from 'react-native';
 
-import * as screens from '../../screens';
+import screenNames from '../../screens/names';
 
 import MemoryStorage from '../../services/memory-storage';
 
@@ -14,11 +14,11 @@ function OnboardingScreen({ route, navigation }: PropsType) {
   const [displayOnboarding, setDisplayOnboarding] = useState(false);
 
   function navigateToDashboard() {
-    navigation.navigate(screens.DashboardScreen.name as never);
+    navigation.navigate(screenNames.DashboardScreen as never);
   }
 
   function navigateToAlbumSelection() {
-    navigation.navigate(screens.AlbumSelectionScreen.name as never);
+    navigation.navigate(screenNames.AlbumSelectionScreen as never);
   }
 
   async function getSelectedAlbum() {
@@ -116,5 +116,3 @@ function OnboardingScreen({ route, navigation }: PropsType) {
 };
 
 export default OnboardingScreen;
-
-export const name = 'Onboarding';

@@ -2,10 +2,7 @@ import { StyleSheet } from 'react-native';
 import { styleHelpers, styles, colors, fonts } from '../../styles';
 
 export default StyleSheet.create({
-  container: styleHelpers.merge(styles.container, {
-    paddingLeft: styleHelpers.scale(20),
-    paddingRight: styleHelpers.scale(20),
-  }),
+  container: styleHelpers.merge(styles.container, {}),
 
   title: {
     alignSelf: 'flex-start',

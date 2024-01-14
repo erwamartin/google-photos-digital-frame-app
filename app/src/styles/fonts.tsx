@@ -7,4 +7,10 @@ export default {
   interMedium: {
     family: 'Inter-Medium',
   },
+  lato: {
+    family: 'Lato-Regular',
+  },
+  latoBold: {
+    family: 'Lato-Bold',
+  },
 };

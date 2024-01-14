@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Button, Pressable, Text, View, useWindowDimensions } from 'react-native';
 import BlastedImage from 'react-native-blasted-image';
 
-import * as screens from '../../screens';
+import screenNames from '../../screens/names';
 
 import MemoryStorage from '../../services/memory-storage';
 import GooglePhotos from '../../services/google-photos';
@@ -22,11 +22,11 @@ function DashboardScreen({ route, navigation }: PropsType) {
   const previewImageWidth = screenWidth * 0.3 > 500 ? 500 : screenWidth * 0.3;
   
   function navigateToAlbumSelection() {
-    navigation.navigate(screens.AlbumSelectionScreen.name as never);
+    navigation.navigate(screenNames.AlbumSelectionScreen as never);
   }
 
   function navigateToOnboarding() {
-    navigation.navigate(screens.OnboardingScreen.name as never);
+    navigation.navigate(screenNames.OnboardingScreen as never);
   }
 
   async function getSelectedAlbum() {
@@ -51,7 +51,7 @@ function DashboardScreen({ route, navigation }: PropsType) {
   }
 
   function playSlideshow() {
-    navigation.navigate(screens.SlideshowScreen.name as never);
+    navigation.navigate(screenNames.SlideshowScreen as never);
   }
 
   useEffect(() => {
@@ -214,5 +214,3 @@ function DashboardScreen({ route, navigation }: PropsType) {
 };
 
 export default DashboardScreen;
-
-export const name = 'Dashboard';

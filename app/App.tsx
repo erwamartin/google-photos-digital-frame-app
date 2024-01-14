@@ -7,11 +7,8 @@ import { createNavigationContainerRef } from '@react-navigation/native';
 import GoogleSignin from './src/services/google-login';
 import GooglePhotos from './src/services/google-photos';
 
-import * as screens from './src/screens';
-import HomeScreen from './src/screens/HomeScreen/HomeScreen';
-import OnboardingScreen from './src/screens/OnboardingScreen/OnboardingScreen';
-import DashboardScreen from './src/screens/DashboardScreen/DashboardScreen';
-import SlideshowScreen from './src/screens/SlideshowScreen';
+import screens from './src/screens';
+import screenNames from './src/screens/names';
 
 const Stack = createNativeStackNavigator();
 const navigationRef = createNavigationContainerRef();
@@ -23,7 +20,7 @@ const App = () => {
         const { accessToken } = await GoogleSignin.getTokens();
         await GooglePhotos.init(accessToken);
 
-        navigationRef.navigate(screens.AlbumSelectionScreen.name as never);
+        navigationRef.navigate(screenNames.AlbumSelectionScreen as never);
       } catch (error) {
         console.log('Error in App.initLogin: ', error);
       }
@@ -43,23 +40,23 @@ const App = () => {
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen
-            name={screens.HomeScreen.name}
+            name={screenNames.HomeScreen}
             component={screens.HomeScreen}
           />
           <Stack.Screen
-            name={screens.OnboardingScreen.name}
+            name={screenNames.OnboardingScreen}
             component={screens.OnboardingScreen}
           />
           <Stack.Screen 
-            name={screens.DashboardScreen.name}
+            name={screenNames.DashboardScreen}
             component={screens.DashboardScreen}
           />
           <Stack.Screen
-            name={screens.AlbumSelectionScreen.name}
+            name={screenNames.AlbumSelectionScreen}
             component={screens.AlbumSelectionScreen}
           />
           <Stack.Screen
-            name={screens.SlideshowScreen.name}
+            name={screenNames.SlideshowScreen}
             component={screens.SlideshowScreen}
           />
         </Stack.Navigator>

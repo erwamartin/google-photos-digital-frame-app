@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
 
-import * as screens from '../../screens';
+import screenNames from '../../screens/names';
 
 import GooglePhotos from '../../services/google-photos';
 import MemoryStorage from '../../services/memory-storage';
+
+import AlbumItem from './components/AlbumItem';
+
+import styles from './styles';
 
 type PropsType = {
   navigation: any
@@ -31,8 +35,10 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
   async function saveSelectedAlbum(id: string) {
     console.log('Selected album: ', id);
     await MemoryStorage.set('selectedAlbumId', id);
-    navigation.navigate(screens.DashboardScreen.name as never, { selectedAlbumId: id });
+    navigation.navigate(screenNames.DashboardScreen as never, { selectedAlbumId: id });
   }
+
+  console.log(screenNames.DashboardScreen);
 
   useEffect(() => {
     getGooglePhotosAlbums(true);
@@ -40,76 +46,55 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
 
   return (
     <View
-      style={{
-        flex: 1,
-        backgroundColor: '#ffffff',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-      }}
+      style={styles.container}
     >
-      <Text
-        style={{
-          fontSize: 30,
-          fontWeight: 'bold',
-          paddingTop: 20,
-          paddingBottom: 20
-        }}
-        >
-        Select an album
-      </Text>
+      <View style={styles.headerContainer}>
+        <Text
+          style={styles.title}
+          >
+          Choose an album
+        </Text>
+      </View>
 
-      {isFetching && (
-        <ActivityIndicator />
-      )}
+      <View>
+        {isFetching && (
+          <ActivityIndicator />
+        )}
 
-      {!isFetching && albums.length === 0 && (
-        <Text>No albums found.</Text>
-      )}
+        {!isFetching && albums.length === 0 && (
+          <Text>No albums found.</Text>
+        )}
 
-      {!isFetching && albums.length > 0 && (
-        <FlatList
-          data={albums}
-          renderItem={({ item }: { item: any }) => {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  saveSelectedAlbum(item.id);
-                }}
-                style={{
-                  width: '100%',
-                  padding: 20,
-                  borderTopWidth: 1,
-                  borderTopColor: '#dddddd'
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 20,
-                  }}
-                >
-                  {item.title}
-                </Text>
-              </TouchableOpacity>
-          )}}
-          keyExtractor={(item) => item.id}
-          onRefresh={() => {
-            getGooglePhotosAlbums(true);
-          }}
-          refreshing={isFetching}
-          onEndReachedThreshold={0.5}
-          onEndReached={() => {
-            getGooglePhotosAlbums();
-          }}
-          
-          style={{
-            width: '100%'
-          }}
-        />
-      )}
+        {!isFetching && albums.length > 0 && (
+          <FlatList
+            numColumns={2}
+            data={albums}
+            renderItem={({ item }: { item: any }) => {
+              return (
+                <AlbumItem
+                  item={item}
+                  saveSelectedAlbum={saveSelectedAlbum}
+                  numColumns={2}
+                />
+            )}}
+            keyExtractor={(item) => item.id}
+            onRefresh={() => {
+              getGooglePhotosAlbums(true);
+            }}
+            refreshing={isFetching}
+            onEndReachedThreshold={0.5}
+            onEndReached={() => {
+              getGooglePhotosAlbums();
+            }}
+            
+            style={{
+              width: '100%'
+            }}
+          />
+        )}
+      </View>
     </View>
   );
 };
 
 export default AlbumSelectionScreen;
-
-export const name = 'AlbumSelectionScreen';
