@@ -23,7 +23,7 @@ const App = () => {
         const { accessToken } = await GoogleSignin.getTokens();
         await GooglePhotos.init(accessToken);
 
-        navigationRef.navigate('Onboarding' as never);
+        // navigationRef.navigate('Onboarding' as never);
       } catch (error) {
         console.log('Error in App.initLogin: ', error);
       }

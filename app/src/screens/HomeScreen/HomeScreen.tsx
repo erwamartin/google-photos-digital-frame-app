@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { Alert, Dimensions, Image, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { Alert, Dimensions, Image, Text, TouchableHighlight, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 import GoogleSignin, { GoogleSigninButton } from '../../services/google-login';
+
+import { styleHelpers } from '../../styles';
+import styles from './styles';
 
 type PropsType = {
   navigation: any
@@ -27,73 +30,77 @@ function HomeScreen({ navigation }: PropsType) {
       .catch(onError);
   }
 
-  const photoIconImageWidth = Dimensions.get('window').width * 0.6;
-  const googleLoginImageWidth = Dimensions.get('window').width * 0.6;
+  const { width: deviceWidth } = useWindowDimensions();
+
+  let photoIconImageWidth = deviceWidth - styleHelpers.scale(40);
+  photoIconImageWidth = photoIconImageWidth > 500 ? 500 : photoIconImageWidth;
+  const photoIconImageHeight = photoIconImageWidth * (1324 / 1267);
 
   return (
     <View
-      style={{
-        flex: 1,
-        backgroundColor: '#ffffff',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        paddingTop: 100,
-      }}
+      style={styles.container}
     >
       <Image 
-        source={require('../../../assets/home/phone-icon.png')}
+        source={require('../../../assets/home/top-image.png')}
         resizeMode="contain"
         style={{
           width: photoIconImageWidth,
+          height: photoIconImageHeight,
+          marginBottom: styleHelpers.scale(30, 0.2),
         }}
       />
 
       <Text
-        style={{
-          fontSize: 50,
-          fontWeight: 'bold',
-        }}
+        style={styles.title}
       >
-        Welcome to
+        Digital display by 
       </Text>
 
+      {deviceWidth < 400 ?
+        (
+          <>
+            <View style={styles.titleHighlightedContainer}>
+              <Text
+                style={styles.titleHighlighted}
+              >
+                using Google
+              </Text>
+            </View>
+            <View style={styles.titleHighlightedContainer}>
+              <Text
+                style={styles.titleHighlighted}
+              >
+                Photos
+              </Text>
+            </View>
+          </>
+        ) :
+        (
+          <View style={styles.titleHighlightedContainer}>
+            <Text
+              style={styles.titleHighlighted}
+            >
+              using Google Photos
+            </Text>
+          </View>
+        )
+      }
+      
       <Text
-        style={{
-          fontSize: 50,
-          fontWeight: 'bold',
-        }}
+        style={styles.subtitle}
       >
-       Photo Frame
-      </Text>
-
-      <Text
-        style={{
-          maxWidth: 400,
-          marginTop: 20,
-          textAlign: 'center',
-          fontSize: 20,
-          color: '#333333',
-        }}
-      >
-        Sign in with Google so you can view your photos as a slideshow.
+        Connect to a Google Photos albums to display pictures.
       </Text>
 
       <TouchableOpacity
         onPress={signIn}
         disabled={isSigninInProgress}
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          width: 400,
-        }}
+        style={styles.googleLoginButton}
       >
         <Image
           source={require('../../../assets/home/google-button.png')}
           resizeMode="contain"
-          style={{
-            width: googleLoginImageWidth > 300 ? 300 : googleLoginImageWidth,
-            marginBottom: 20,
-          }}
+          style={styles.googleLoginButtonImage}
         />
       </TouchableOpacity>
 		</View>
