@@ -15,6 +15,7 @@ const navigationRef = createNavigationContainerRef();
 
 const App = () => {
   async function initLogin() {
+    console.log('ERWAN: initLogin');
     GoogleSignin.onLogin(async () => {
       try {
         const { accessToken } = await GoogleSignin.getTokens();

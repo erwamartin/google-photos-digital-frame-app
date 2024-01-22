@@ -3,9 +3,10 @@ import { styleHelpers, styles, colors, fonts } from '../../styles';
 
 export default StyleSheet.create({
   container: styleHelpers.merge(styles.container, {
+    width: '100%',
     justifyContent: 'flex-start',
-    paddingLeft: styleHelpers.scale(10),
-    paddingRight: styleHelpers.scale(10),
+    paddingLeft: 0,
+    paddingRight: 0,
   }),
 
   headerContainer: {
@@ -18,4 +19,8 @@ export default StyleSheet.create({
     fontSize: styleHelpers.fontSize(16),
     color: colors.black,
   },
+
+  listContainer: {
+    width: '100%',
+  }
 });

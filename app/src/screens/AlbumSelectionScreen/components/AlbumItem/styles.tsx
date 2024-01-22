@@ -4,13 +4,21 @@ import { styleHelpers, colors, fonts } from '../../../../styles';
 export default StyleSheet.create({
   container: {
     paddingBottom: styleHelpers.scale(25),
-    paddingLeft: styleHelpers.scale(10),
-    paddingRight: styleHelpers.scale(10),
   },
 
   albumName: {
     fontFamily: fonts.latoBold.family,
-    fontSize: styleHelpers.fontSize(14),
+    fontSize: styleHelpers.fontSize(16),
     color: colors.cursedBlack,
-  }
+  },
+  albumPhotoCount: {
+    fontFamily: fonts.lato.family,
+    fontSize: styleHelpers.fontSize(14),
+    color: colors.heatherGrey,
+  },
+
+  image: {
+    borderRadius: styleHelpers.scale(16),
+    marginBottom: styleHelpers.scale(20, 0.2),
+  },
 });

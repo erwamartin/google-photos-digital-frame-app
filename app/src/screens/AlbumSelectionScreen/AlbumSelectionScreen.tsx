@@ -69,10 +69,11 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
           <FlatList
             numColumns={2}
             data={albums}
-            renderItem={({ item }: { item: any }) => {
+            renderItem={({ item, index }: { item: any, index: number }) => {
               return (
                 <AlbumItem
                   item={item}
+                  index={index}
                   saveSelectedAlbum={saveSelectedAlbum}
                   numColumns={2}
                 />
@@ -87,9 +88,7 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
               getGooglePhotosAlbums();
             }}
             
-            style={{
-              width: '100%'
-            }}
+            style={styles.listContainer}
           />
         )}
       </View>
