@@ -20,7 +20,33 @@ export default StyleSheet.create({
     color: colors.black,
   },
 
+  albumListContainer: {
+    flex: 1,
+  },
   listContainer: {
     width: '100%',
-  }
+  },
+
+  saveButtonContainer: {
+    position: 'absolute',
+    width: '100%',
+    bottom: 0,
+    paddingTop: styleHelpers.scale(15, 0.2),
+    paddingHorizontal: styleHelpers.scale(25),
+    paddingBottom: styleHelpers.scale(25, 0.2),
+    backgroundColor: colors.white,
+  },
+  saveButton: {
+    width: '100%',
+    paddingVertical: styleHelpers.scale(16, 0.2),
+    borderRadius: 50,
+    backgroundColor: colors.waikiki,
+  },
+  saveButtonText: {
+    width: '100%',
+    textAlign: 'center',
+    fontSize: styleHelpers.fontSize(16),
+    fontWeight: '600',
+    color: colors.white,
+  },
 });

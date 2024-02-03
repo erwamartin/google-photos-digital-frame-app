@@ -20,7 +20,7 @@ class GooglePhotos {
     return this._googlePhotosApi;
   }
 
-  async getAlbums(length: number = 10, startFromToken: boolean = false) {
+  async getAllAlbums(length: number = 10, startFromToken: boolean = false) {
     try {
       const googlePhotosApi = this.googlePhotosApi();
       if (!googlePhotosApi) {
@@ -87,7 +87,30 @@ class GooglePhotos {
     }
   }
 
+  async getAlbums(albums: string[]) {
+    try {
+      if (!this._googlePhotosApi) {
+        console.error('Error in GooglePhotos.getAlbums: googlePhotosApi is null');
+        return [];
+      }
+
+      const apiAlbums = [];
+      for (const albumId of albums) {
+        const album = await this.getAlbum(albumId);
+        if (album) {
+          apiAlbums.push(album);
+        }
+      }
+
+      return apiAlbums;
+    } catch (error) {
+      console.error('Error in GooglePhotos.getAlbums: ', error);
+      throw error;
+    }
+  }
+
   async getAlbumPhotos(id: string, length: number = 10, startFromToken: boolean = false) {
+    console.log('Getting photos for album: ', id);
     try {
       const googlePhotosApi = this.googlePhotosApi();
       if (!googlePhotosApi) {
@@ -126,6 +149,23 @@ class GooglePhotos {
       return apiPhotos;
     } catch (error) {
       console.error('Error in GooglePhotos.getAlbumPhotos: ', error);
+      throw error;
+    }
+  }
+
+  async getAlbumPhotosByIds(ids: string[] = []) {
+    try {
+      const apiPhotos = [];
+      for (const id of ids) {
+        if (!id) {
+          continue;
+        }
+        const photos = await this.getAlbumPhotos(id, 10);
+        apiPhotos.push(...photos);
+      }
+      return apiPhotos;
+    } catch (error) {
+      console.error('Error in GooglePhotos.getAlbumPhotosByIds: ', error);
       throw error;
     }
   }

@@ -9,8 +9,8 @@ function scale(fontSize: number, factor: number = 1) {
   return factor ? libModerateScale(fontSize, factor) : libScale(fontSize);
 }
 
-function fontSize(fontSize: number) {
-  return libModerateScale(fontSize, 0.8);
+function fontSize(fontSize: number, factor: number = 0.4) {
+  return libModerateScale(fontSize, factor);
 }
 
 export {

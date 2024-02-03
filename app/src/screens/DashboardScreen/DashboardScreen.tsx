@@ -13,8 +13,7 @@ type PropsType = {
 }
 
 function DashboardScreen({ route, navigation }: PropsType) {
-  const [isLoadingSelectedAlbum, setIsLoadingSelectedAlbum] = useState(false);
-  const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [isLoadingSelectedAlbum, setIsLoadingSelectedAlbums] = useState(false);
   const [selectedAlbumPreviewImages, setSelectedAlbumPreviewImages] = useState([] as any[]);
 
   const { width: screenWidth } = useWindowDimensions();
@@ -29,25 +28,32 @@ function DashboardScreen({ route, navigation }: PropsType) {
     navigation.navigate(screenNames.OnboardingScreen as never);
   }
 
-  async function getSelectedAlbum() {
-    setIsLoadingSelectedAlbum(true);
-    setSelectedAlbum(null);
+  async function getSelectedAlbums() {
+    setIsLoadingSelectedAlbums(true);
 
-    const id = await MemoryStorage.get('selectedAlbumId');
-    if (!id || id === '') {
-      setIsLoadingSelectedAlbum(false);
+    const selectedAlbums = await MemoryStorage.get('selectedAlbums') as string[];
+    if (!selectedAlbums || selectedAlbums.length === 0) {
+      setIsLoadingSelectedAlbums(false);
       navigateToOnboarding();
       return;
     }
 
-    const album = await GooglePhotos.getAlbum(id);
-    console.log('Selected album: ', album);
-    setSelectedAlbum(album as any || null);
+    const albums = await GooglePhotos.getAlbums(selectedAlbums);
+
+    const photos = [];
+    for (const album of albums) {
+      if (!album.id) {
+        continue;
+      }
+      const albumPhotos = await GooglePhotos.getAlbumPhotos(album.id, 13);
+      photos.push(...albumPhotos);
+    }
     
-    const photos = await GooglePhotos.getAlbumPhotos(id, 13);
     setSelectedAlbumPreviewImages(photos.map((photo: any) => photo.baseUrl + '=w' + previewImageWidth * 4 + '-h' + previewImageWidth * 4));
 
-    setIsLoadingSelectedAlbum(false);
+    console.log('Selected albums: ', selectedAlbumPreviewImages);
+
+    setIsLoadingSelectedAlbums(false);
   }
 
   function playSlideshow() {
@@ -55,13 +61,13 @@ function DashboardScreen({ route, navigation }: PropsType) {
   }
 
   useEffect(() => {
-    getSelectedAlbum();
+    getSelectedAlbums();
   }, []);
 
   const { selectedAlbumId } = (route.params || {});
   useEffect(() => {
     if (selectedAlbumId) {
-      getSelectedAlbum();
+      getSelectedAlbums();
     }
   }, [selectedAlbumId]);
 

@@ -17,8 +17,8 @@ function SlideshowScreen({ navigation }: PropsType) {
 
   async function getPhotos() {
     setIsLoadingPhotos(true);
-    const id = await MemoryStorage.get('selectedAlbumId');
-    const photos = await GooglePhotos.getAlbumPhotos(id);
+    const albums = await MemoryStorage.get('selectedAlbums') || [];
+    const photos = await GooglePhotos.getAlbumPhotosByIds(albums);
     setPhotos(photos as any || []);
     setIsLoadingPhotos(false);
   }

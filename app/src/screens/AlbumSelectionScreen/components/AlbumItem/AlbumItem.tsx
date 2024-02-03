@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import { Image, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 import BlastedImage from 'react-native-blasted-image';
 import GooglePhotos from '../../../../services/google-photos';
 
@@ -10,11 +10,12 @@ import styles from './styles';
 type AlbumItemPropsType = {
   item: any,
   index: number,
-  saveSelectedAlbum: (id: string) => void,
+  toggleSelectedAlbum: (id: string) => void,
+  isSelected: boolean,
   numColumns: number,
 }
 
-function AlbumItem({ item, index, saveSelectedAlbum, numColumns }: AlbumItemPropsType) {
+function AlbumItem({ item, index, isSelected, toggleSelectedAlbum, numColumns }: AlbumItemPropsType) {
   const { width: screenWidth } = useWindowDimensions();
   const paddingWidth = styleHelpers.scale(10, 0.2);
   const columnWidth = (screenWidth / numColumns) - (paddingWidth * (2 + (numColumns - 1)));
@@ -22,7 +23,7 @@ function AlbumItem({ item, index, saveSelectedAlbum, numColumns }: AlbumItemProp
   return (
     <TouchableOpacity
       onPress={() => {
-        saveSelectedAlbum(item.id);
+        toggleSelectedAlbum(item.id);
       }}
       style={styles.container}
     >
@@ -33,13 +34,31 @@ function AlbumItem({ item, index, saveSelectedAlbum, numColumns }: AlbumItemProp
           marginRight: paddingWidth,
         }}
       >
-        <BlastedImage
-          source={{ uri: GooglePhotos.getPhotoUrl(item.coverPhotoBaseUrl, columnWidth, columnWidth) }}
-          style={styleHelpers.merge(styles.image, {
-            width: columnWidth,
-            height: columnWidth,
-          })}
-        />
+        <View
+          style={styles.imageContainer}
+        >
+          <BlastedImage
+            source={{ uri: GooglePhotos.getPhotoUrl(item.coverPhotoBaseUrl, columnWidth, columnWidth) }}
+            style={styleHelpers.merge(styles.image, {
+              width: columnWidth,
+              height: columnWidth,
+            })}
+          />
+          {isSelected && (
+            <View
+              style={styles.selectedImageOverlay}
+            >
+              <Image
+                source={require('../../../../../assets/icons/checkbox-icon.png')}
+                resizeMode='contain'
+                style={{
+                  width: columnWidth / 3,
+                  height: columnWidth / 3,
+                }}
+              />
+            </View>
+          )}
+        </View>
         <Text
           style={styles.albumName}
         >

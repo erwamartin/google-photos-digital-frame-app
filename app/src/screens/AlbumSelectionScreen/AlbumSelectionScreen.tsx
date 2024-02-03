@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 
 import screenNames from '../../screens/names';
 
@@ -8,6 +8,7 @@ import MemoryStorage from '../../services/memory-storage';
 
 import AlbumItem from './components/AlbumItem';
 
+import { styleHelpers } from '../../styles';
 import styles from './styles';
 
 type PropsType = {
@@ -15,7 +16,10 @@ type PropsType = {
 }
 
 function AlbumSelectionScreen({ navigation }: PropsType) {
-  const [albums, setAlbums] = useState([]);
+  const { width: screenWidth } = useWindowDimensions();
+  
+  const [albums, setAlbums] = useState([] as any[]);
+  const [selectedAlbums, setSelectedAlbums] = useState([] as string[]);
   const [isFetching, setIsFetching] = useState(false);
 
   async function getGooglePhotosAlbums(isFirstRequest: boolean = false) {
@@ -27,16 +31,38 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
       setIsFetching(true);
     }
     
-    const apiAlbums = await GooglePhotos.getAlbums(20, !isFirstRequest) as any;
+    const apiAlbums = await GooglePhotos.getAllAlbums(20, !isFirstRequest) as any;
     setAlbums(apiAlbums);
     setIsFetching(false);
   }
 
-  async function saveSelectedAlbum(id: string) {
-    console.log('Selected album: ', id);
-    await MemoryStorage.set('selectedAlbumId', id);
-    navigation.navigate(screenNames.DashboardScreen as never, { selectedAlbumId: id });
+  function toggleSelectedAlbum(id: string) {
+    if (selectedAlbums.includes(id)) {
+      setSelectedAlbums(selectedAlbums.filter((albumId) => albumId !== id));
+    } else {
+      setSelectedAlbums([...selectedAlbums, id]);
+    }
   }
+
+  async function saveSelection() {
+    await MemoryStorage.set('selectedAlbums', selectedAlbums);
+    navigation.navigate(screenNames.DashboardScreen as never, { selectedAlbums: selectedAlbums });
+  }
+
+  const columnCount = useMemo(() => {
+    switch (true) {
+      case screenWidth < 300:
+        return 1;
+      case screenWidth < 600:
+        return 2;
+      case screenWidth < 900:
+        return 3;
+      case screenWidth < 1200:
+        return 4;
+      default:
+        return 5;
+    }
+  }, [screenWidth]);
 
   console.log(screenNames.DashboardScreen);
 
@@ -56,7 +82,9 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
         </Text>
       </View>
 
-      <View>
+      <View
+        style={styles.albumListContainer}
+      >
         {isFetching && (
           <ActivityIndicator />
         )}
@@ -67,15 +95,17 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
 
         {!isFetching && albums.length > 0 && (
           <FlatList
-            numColumns={2}
+            key={columnCount}
+            numColumns={columnCount}
             data={albums}
             renderItem={({ item, index }: { item: any, index: number }) => {
               return (
                 <AlbumItem
                   item={item}
                   index={index}
-                  saveSelectedAlbum={saveSelectedAlbum}
-                  numColumns={2}
+                  toggleSelectedAlbum={toggleSelectedAlbum}
+                  isSelected={selectedAlbums.includes(item.id)}
+                  numColumns={columnCount}
                 />
             )}}
             keyExtractor={(item) => item.id}
@@ -91,6 +121,24 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
             style={styles.listContainer}
           />
         )}
+      </View>
+
+      <View
+        style={styles.saveButtonContainer}
+      >
+        <TouchableOpacity
+          onPress={saveSelection}
+          style={styleHelpers.merge(styles.saveButton, {
+            opacity: selectedAlbums.length === 0 ? 0.5 : 1,
+          })}
+          disabled={selectedAlbums.length === 0}
+        >
+          <Text
+            style={styles.saveButtonText}
+          >
+            Confirm selection
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
