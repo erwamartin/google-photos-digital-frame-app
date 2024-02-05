@@ -1,4 +1,5 @@
 const Photos = require('googlephotos-api');
+import GoogleSignIn from '../google-login';
 
 const maxAlbumsPerQuery = 50;
 
@@ -20,7 +21,13 @@ class GooglePhotos {
     return this._googlePhotosApi;
   }
 
+  async verifyLogin() {
+    await GoogleSignIn.getCurrentUserInfo();
+  }
+
   async getAllAlbums(length: number = 10, startFromToken: boolean = false) {
+    await this.verifyLogin();
+
     try {
       const googlePhotosApi = this.googlePhotosApi();
       if (!googlePhotosApi) {
@@ -67,6 +74,8 @@ class GooglePhotos {
   }
 
   async getAlbum(id: string) {
+    await this.verifyLogin();
+
     try {
       if (!this._googlePhotosApi) {
         console.error('Error in GooglePhotos.getAlbum: googlePhotosApi is null');
@@ -88,6 +97,8 @@ class GooglePhotos {
   }
 
   async getAlbums(albums: string[]) {
+    await this.verifyLogin();
+
     try {
       if (!this._googlePhotosApi) {
         console.error('Error in GooglePhotos.getAlbums: googlePhotosApi is null');
@@ -110,7 +121,8 @@ class GooglePhotos {
   }
 
   async getAlbumPhotos(id: string, length: number = 10, startFromToken: boolean = false) {
-    console.log('Getting photos for album: ', id);
+    await this.verifyLogin();
+
     try {
       const googlePhotosApi = this.googlePhotosApi();
       if (!googlePhotosApi) {
@@ -154,6 +166,8 @@ class GooglePhotos {
   }
 
   async getAlbumPhotosByIds(ids: string[] = []) {
+    await this.verifyLogin();
+    
     try {
       const apiPhotos = [];
       for (const id of ids) {

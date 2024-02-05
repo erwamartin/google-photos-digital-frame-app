@@ -21,6 +21,10 @@ const navigationRef = createNavigationContainerRef();
 
 const App = () => {
   async function initLogin() {
+    if (!navigationRef.isReady()) {
+      return;
+    }
+
     console.log('initLogin');
     GoogleSignIn.onLogin(async () => {
       try {
@@ -64,7 +68,7 @@ const App = () => {
 
   useEffect(() => {
     initLogin();
-  }, []);
+  }, [navigationRef.current]);
 
   return (
     <SafeAreaProvider>
