@@ -27,7 +27,6 @@ const App = () => {
   
   async function initializeLogin() {
     if (!navigationRef.current) {
-      console.warn('navigationRef is not initialized');
       return;
     }
 

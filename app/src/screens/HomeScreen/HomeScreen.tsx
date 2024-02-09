@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Alert, Image, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
-import GoogleSignin from '../../services/google-login';
 
-import { styleHelpers } from '../../styles';
+import GoogleSignin from '@services/google-login';
+
+import { styleHelpers } from '@styles';
 import styles from './styles';
 
 type PropsType = {
@@ -41,7 +42,7 @@ function HomeScreen({ navigation }: PropsType) {
       style={styles.container}
     >
       <Image 
-        source={require('../../../assets/home/top-image.png')}
+        source={require('@assets/home/top-image.png')}
         resizeMode="contain"
         style={{
           width: photoIconImageWidth,
@@ -98,7 +99,7 @@ function HomeScreen({ navigation }: PropsType) {
         style={styles.googleLoginButton}
       >
         <Image
-          source={require('../../../assets/home/google-button.png')}
+          source={require('@assets/home/google-button.png')}
           resizeMode="contain"
           style={styles.googleLoginButtonImage}
         />

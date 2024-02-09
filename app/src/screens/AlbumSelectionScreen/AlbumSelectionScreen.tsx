@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 
-import screenNames from '../../screens/names';
+import screenNames from '@screens/names';
 
-import GooglePhotos from '../../services/google-photos';
-import MemoryStorage from '../../services/memory-storage';
+import GooglePhotos from '@services/google-photos';
+import MemoryStorage from '@services/memory-storage';
 
 import AlbumItem from './components/AlbumItem';
 
-import { styleHelpers } from '../../styles';
+import { styleHelpers } from '@styles';
 import styles from './styles';
 
 type PropsType = {

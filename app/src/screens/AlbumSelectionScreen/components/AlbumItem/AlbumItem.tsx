@@ -2,9 +2,10 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
 // @ts-ignore (BlastedImage is not typed yet)
 import BlastedImage from 'react-native-blasted-image';
-import GooglePhotos from '../../../../services/google-photos';
 
-import { styleHelpers } from '../../../../styles';
+import GooglePhotos from '@services/google-photos';
+
+import { styleHelpers } from '@styles';
 
 import styles from './styles';
 
@@ -50,7 +51,7 @@ function AlbumItem({ item, index, isSelected, toggleSelectedAlbum, numColumns }:
               style={styles.selectedImageOverlay}
             >
               <Image
-                source={require('../../../../../assets/icons/checkbox-icon.png')}
+                source={require('@assets/icons/checkbox-icon.png')}
                 resizeMode='contain'
                 style={{
                   width: columnWidth / 3,

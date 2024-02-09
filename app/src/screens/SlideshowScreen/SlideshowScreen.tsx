@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, StatusBar, Text, TouchableWithoutFeedback, View, useWindowDimensions } from 'react-native';
 
-import screenNames from '../../screens/names';
+import screenNames from '@screens/names';
 
-import MemoryStorage from '../../services/memory-storage';
-import GooglePhotos from '../../services/google-photos';
+import MemoryStorage from '@services/memory-storage';
+import GooglePhotos from '@services/google-photos';
 
 type PropsType = {
   navigation: any

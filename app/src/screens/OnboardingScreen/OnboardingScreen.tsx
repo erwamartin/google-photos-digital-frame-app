@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Dimensions, Image, Pressable, Text, View } from 'react-native';
 
-import screenNames from '../../screens/names';
+import screenNames from '@screens/names';
 
-import MemoryStorage from '../../services/memory-storage';
+import MemoryStorage from '@services/memory-storage';
 
 type PropsType = {
   navigation: any,
@@ -63,7 +63,7 @@ function OnboardingScreen({ route, navigation }: PropsType) {
       }}
     >
       <Image 
-        source={require('../../../assets/onboarding/select-photos-icon.png')}
+        source={require('@assets/onboarding/select-photos-icon.png')}
         resizeMode='contain'
         style={{
           width: topIconImageWidth,

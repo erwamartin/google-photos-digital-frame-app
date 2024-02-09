@@ -3,10 +3,10 @@ import { ActivityIndicator, Button, Pressable, Text, View, useWindowDimensions }
 // @ts-ignore (BlastedImage is not typed yet)
 import BlastedImage from 'react-native-blasted-image';
 
-import screenNames from '../../screens/names';
+import screenNames from '@screens/names';
 
-import MemoryStorage from '../../services/memory-storage';
-import GooglePhotos from '../../services/google-photos';
+import MemoryStorage from '@services/memory-storage';
+import GooglePhotos from '@services/google-photos';
 
 type PropsType = {
   navigation: any,

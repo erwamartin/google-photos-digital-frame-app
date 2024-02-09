@@ -1,6 +1,17 @@
 {
   "compilerOptions": {
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"],
+      "@screens/*": ["src/screens/*"],
+      "@services/*": ["src/services/*"],
+      "@styles": ["src/styles"],
+      "@styles/*": ["src/styles/*"],
+      "@types/*": ["src/types/*"],
+      "@config/*": ["src/config/*"],
+      "@assets/*": ["assets/*"],
+    }
   },
   "extends": "@react-native/typescript-config/tsconfig.json"
 }
