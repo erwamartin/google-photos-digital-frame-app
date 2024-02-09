@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Image, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+// @ts-ignore (BlastedImage is not typed yet)
 import BlastedImage from 'react-native-blasted-image';
 import GooglePhotos from '../../../../services/google-photos';
 

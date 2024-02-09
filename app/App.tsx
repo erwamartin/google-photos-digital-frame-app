@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { createNavigationContainerRef } from '@react-navigation/native';
+// import { createNavigationContainerRef } from '@react-navigation/native';
 
 import {
   SafeAreaProvider,
@@ -19,14 +19,22 @@ import { View } from 'react-native';
 import colors from './src/styles/colors';
 
 const Stack = createNativeStackNavigator();
-const navigationRef = createNavigationContainerRef();
 
 const App = () => {
-  async function initLogin() {
+  const [isNavigationReady, setIsNavigationReady] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const navigationRef = useNavigationContainerRef();
+  
+  async function initializeLogin() {
     if (!navigationRef.current) {
       console.warn('navigationRef is not initialized');
       return;
     }
+
+    if (isInitialized) {
+      return;
+    }
+    setIsInitialized(true);
 
     GoogleSignIn.onLogin(async () => {
       try {
@@ -40,6 +48,10 @@ const App = () => {
     });
 
     await GoogleSignIn.init(googleScopes);
+  }
+
+  function onNavigationReady() {
+    setIsNavigationReady(true);
   }
 
   function wrapScreenWithSafeArea(Screen: any, { skipBottomPadding = false } = {}) {
@@ -67,12 +79,15 @@ const App = () => {
   }
 
   useEffect(() => {
-    initLogin();
-  }, [navigationRef.current]);
+    initializeLogin();
+  }, [navigationRef.current, isNavigationReady]);
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer ref={navigationRef}>
+      <NavigationContainer 
+        ref={navigationRef} 
+        onReady={onNavigationReady}
+      >
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen
             name={screenNames.HomeScreen}

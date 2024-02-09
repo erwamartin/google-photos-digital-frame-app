@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Button, Pressable, Text, View, useWindowDimensions } from 'react-native';
+// @ts-ignore (BlastedImage is not typed yet)
 import BlastedImage from 'react-native-blasted-image';
 
 import screenNames from '../../screens/names';
