@@ -11,6 +11,8 @@ import {
 import GoogleSignIn from './src/services/google-login';
 import GooglePhotos from './src/services/google-photos';
 
+import { googleScopes } from './src/config/google';
+
 import screens from './src/screens';
 import screenNames from './src/screens/names';
 import { View } from 'react-native';
@@ -21,11 +23,11 @@ const navigationRef = createNavigationContainerRef();
 
 const App = () => {
   async function initLogin() {
-    if (!navigationRef.isReady()) {
+    if (!navigationRef.current) {
+      console.warn('navigationRef is not initialized');
       return;
     }
 
-    console.log('initLogin');
     GoogleSignIn.onLogin(async () => {
       try {
         const { accessToken } = await GoogleSignIn.getTokens();
@@ -37,9 +39,7 @@ const App = () => {
       }
     });
 
-    await GoogleSignIn.init([
-      'https://www.googleapis.com/auth/photoslibrary.readonly',
-    ]);
+    await GoogleSignIn.init(googleScopes);
   }
 
   function wrapScreenWithSafeArea(Screen: any, { skipBottomPadding = false } = {}) {
