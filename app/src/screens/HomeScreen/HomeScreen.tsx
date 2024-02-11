@@ -43,7 +43,7 @@ function HomeScreen({ navigation }: PropsType) {
     >
       <Image 
         source={require('@assets/home/top-image.png')}
-        resizeMode="contain"
+        resizeMode='contain'
         style={{
           width: photoIconImageWidth,
           height: photoIconImageHeight,
@@ -100,7 +100,7 @@ function HomeScreen({ navigation }: PropsType) {
       >
         <Image
           source={require('@assets/home/google-button.png')}
-          resizeMode="contain"
+          resizeMode='contain'
           style={styles.googleLoginButtonImage}
         />
       </TouchableOpacity>

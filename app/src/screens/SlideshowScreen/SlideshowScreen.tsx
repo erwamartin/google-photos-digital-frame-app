@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, StatusBar, Text, TouchableWithoutFeedback, View, useWindowDimensions } from 'react-native';
 
-import screenNames from '@screens/names';
-
-import MemoryStorage from '@services/memory-storage';
 import GooglePhotos from '@services/google-photos';
+import User from '@services/user';
+
+import screenNames from '@screens/names';
 
 type PropsType = {
   navigation: any
@@ -17,7 +17,7 @@ function SlideshowScreen({ navigation }: PropsType) {
 
   async function getPhotos() {
     setIsLoadingPhotos(true);
-    const albums = await MemoryStorage.get('selectedAlbums') || [];
+    const albums = await User.getAlbums();
     const photos = await GooglePhotos.getAlbumPhotosByIds(albums);
     setPhotos(photos as any || []);
     setIsLoadingPhotos(false);

@@ -1,2 +1,2 @@
-import Storage from "./async-storage";
+import Storage from './async-storage';
 export default Storage;

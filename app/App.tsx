@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+
 import {NavigationContainer, useNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-// import { createNavigationContainerRef } from '@react-navigation/native';
-
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
-import GoogleSignIn from './src/services/google-login';
-import GooglePhotos from './src/services/google-photos';
+import GoogleSignIn from '@services/google-login';
+import GooglePhotos from '@services/google-photos';
+import User from '@services/user';
 
-import { googleScopes } from './src/config/google';
+import screens from '@screens';
+import screenNames from '@screens/names';
 
-import screens from './src/screens';
-import screenNames from './src/screens/names';
-import { View } from 'react-native';
-import colors from './src/styles/colors';
+import { googleScopes } from '@config/google';
+
+import colors from '@styles/colors';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,11 @@ const App = () => {
       try {
         const { accessToken } = await GoogleSignIn.getTokens();
         await GooglePhotos.init(accessToken);
+
+        if (await User.hasSelectedAlbums()) {
+          navigationRef.navigate(screenNames.DashboardScreen as never);
+          return;
+        }
 
         navigationRef.navigate(screenNames.AlbumSelectionScreen as never);
       } catch (error) {

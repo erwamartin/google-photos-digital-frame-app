@@ -5,8 +5,8 @@ import BlastedImage from 'react-native-blasted-image';
 
 import screenNames from '@screens/names';
 
-import MemoryStorage from '@services/memory-storage';
 import GooglePhotos from '@services/google-photos';
+import User from '@services/user';
 
 type PropsType = {
   navigation: any,
@@ -32,16 +32,16 @@ function DashboardScreen({ route, navigation }: PropsType) {
   async function getSelectedAlbums() {
     setIsLoadingSelectedAlbums(true);
 
-    const selectedAlbums = await MemoryStorage.get('selectedAlbums') as string[];
+    const selectedAlbums = await User.getAlbums();
     if (!selectedAlbums || selectedAlbums.length === 0) {
       setIsLoadingSelectedAlbums(false);
       navigateToOnboarding();
       return;
     }
 
-    const albums = await GooglePhotos.getAlbums(selectedAlbums);
-
     const photos = [];
+
+    const albums = await GooglePhotos.getAlbums(selectedAlbums);
     for (const album of albums) {
       if (!album.id) {
         continue;

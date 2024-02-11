@@ -4,12 +4,12 @@ import { ActivityIndicator, FlatList, Text, TouchableOpacity, View, useWindowDim
 import screenNames from '@screens/names';
 
 import GooglePhotos from '@services/google-photos';
-import MemoryStorage from '@services/memory-storage';
 
 import AlbumItem from './components/AlbumItem';
 
 import { styleHelpers } from '@styles';
 import styles from './styles';
+import User from 'services/user';
 
 type PropsType = {
   navigation: any
@@ -45,7 +45,7 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
   }
 
   async function saveSelection() {
-    await MemoryStorage.set('selectedAlbums', selectedAlbums);
+    await User.setAlbums(selectedAlbums);
     navigation.navigate(screenNames.DashboardScreen as never, { selectedAlbums: selectedAlbums });
   }
 
@@ -63,8 +63,6 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
         return 5;
     }
   }, [screenWidth]);
-
-  console.log(screenNames.DashboardScreen);
 
   useEffect(() => {
     getGooglePhotosAlbums(true);
