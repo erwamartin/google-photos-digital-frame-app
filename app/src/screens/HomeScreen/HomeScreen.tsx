@@ -11,21 +11,20 @@ type PropsType = {
 }
 
 function HomeScreen({ navigation }: PropsType) {
-  const [isSigninInProgress, setIsSigninInProgress] = useState(false);
+  const [isSignInProgress, setIsSignInProgress] = useState(false);
 
   function onSuccess(userInfo: any) {
-    console.log('User Info: ', userInfo);
-    setIsSigninInProgress(false);
+    setIsSignInProgress(false);
   }
 
   function onError(error: any) {
-    console.log('Error: ', error);
-    setIsSigninInProgress(false);
+    console.error('Error while signing in: ', error);
+    setIsSignInProgress(false);
     Alert.alert('Error', error.message);
   }
 
   function signIn() {
-    setIsSigninInProgress(true);
+    setIsSignInProgress(true);
     GoogleSignin.signIn()
       .then(onSuccess)
       .catch(onError);
@@ -95,7 +94,7 @@ function HomeScreen({ navigation }: PropsType) {
 
       <TouchableOpacity
         onPress={signIn}
-        disabled={isSigninInProgress}
+        disabled={isSignInProgress}
         style={styles.googleLoginButton}
       >
         <Image

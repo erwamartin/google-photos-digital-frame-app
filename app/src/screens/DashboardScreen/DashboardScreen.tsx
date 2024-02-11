@@ -51,9 +51,6 @@ function DashboardScreen({ route, navigation }: PropsType) {
     }
     
     setSelectedAlbumPreviewImages(photos.map((photo: any) => photo.baseUrl + '=w' + previewImageWidth * 4 + '-h' + previewImageWidth * 4));
-
-    console.log('Selected albums: ', selectedAlbumPreviewImages);
-
     setIsLoadingSelectedAlbums(false);
   }
 

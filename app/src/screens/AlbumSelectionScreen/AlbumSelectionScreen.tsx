@@ -31,7 +31,7 @@ function AlbumSelectionScreen({ navigation }: PropsType) {
       setIsFetching(true);
     }
     
-    const apiAlbums = await GooglePhotos.getAllAlbums(20, !isFirstRequest) as any;
+    const apiAlbums = await GooglePhotos.getAllAlbums(10, !isFirstRequest) as any;
     setAlbums(apiAlbums);
     setIsFetching(false);
   }

@@ -58,7 +58,6 @@ class GooglePhotos {
         // Prevent duplicates
         for (const apiAlbum of apiAlbums) {
           if (!this._albums.find((album) => album.id === apiAlbum.id) && apiAlbum?.title?.length > 0) {
-            console.log('Adding album: ', apiAlbum);
             queryAlbums.push(apiAlbum);
             this._albums.push(apiAlbum);
           }
@@ -151,7 +150,6 @@ class GooglePhotos {
         // Prevent duplicates
         for (const apiPhoto of apiPhotosResponse) {
           if (!apiPhotos.find((photo) => photo.id === apiPhoto.id)) {
-            console.log('Adding photo: ', apiPhoto);
             apiPhotos.push(apiPhoto);
           }
         }
