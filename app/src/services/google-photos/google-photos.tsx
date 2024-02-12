@@ -21,12 +21,12 @@ class GooglePhotos {
     return this._googlePhotosApi;
   }
 
-  async verifyLogin() {
-    await GoogleSignIn.getCurrentUserInfo();
+  async refreshUserAccessToken() {
+    this._accessToken = await GoogleSignIn.getUserAccessToken();
   }
 
   async getAllAlbums(length: number = 10, startFromToken: boolean = false) {
-    await this.verifyLogin();
+    await this.refreshUserAccessToken();
 
     try {
       const googlePhotosApi = this.googlePhotosApi();
@@ -73,7 +73,7 @@ class GooglePhotos {
   }
 
   async getAlbum(id: string) {
-    await this.verifyLogin();
+    await this.refreshUserAccessToken();
 
     try {
       if (!this._googlePhotosApi) {
@@ -96,7 +96,7 @@ class GooglePhotos {
   }
 
   async getAlbums(albums: string[]) {
-    await this.verifyLogin();
+    await this.refreshUserAccessToken();
 
     try {
       if (!this._googlePhotosApi) {
@@ -120,7 +120,7 @@ class GooglePhotos {
   }
 
   async getAlbumPhotos(id: string, length: number = 10, startFromToken: boolean = false) {
-    await this.verifyLogin();
+    await this.refreshUserAccessToken();
 
     try {
       const googlePhotosApi = this.googlePhotosApi();
@@ -164,7 +164,7 @@ class GooglePhotos {
   }
 
   async getAlbumPhotosByIds(ids: string[] = []) {
-    await this.verifyLogin();
+    await this.refreshUserAccessToken();
     
     try {
       const apiPhotos = [];

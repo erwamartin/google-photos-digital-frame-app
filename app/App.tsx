@@ -98,10 +98,6 @@ const App = () => {
             name={screenNames.HomeScreen}
             component={wrapScreenWithSafeArea(screens.HomeScreen)}
           />
-          <Stack.Screen
-            name={screenNames.OnboardingScreen}
-            component={wrapScreenWithSafeArea(screens.OnboardingScreen)}
-          />
           <Stack.Screen 
             name={screenNames.DashboardScreen}
             component={wrapScreenWithSafeArea(screens.DashboardScreen)}
