@@ -35,7 +35,7 @@ export default StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    backgroundColor: colors.white,
+    backgroundColor: colors.whiteSmoke,
     opacity: 0.9,
     borderRadius: styleHelpers.scale(16),
   }

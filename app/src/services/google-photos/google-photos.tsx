@@ -16,8 +16,10 @@ class GooglePhotos {
 
   googlePhotosApi() {
     if (!this._googlePhotosApi) {
+      console.log('GooglePhotos.googlePhotosApi: ', this._accessToken);
       this._googlePhotosApi = new Photos(this._accessToken);
     }
+    console.log('GooglePhotos.googlePhotosApi: ', this._googlePhotosApi ? 'success' : 'failed');
     return this._googlePhotosApi;
   }
 

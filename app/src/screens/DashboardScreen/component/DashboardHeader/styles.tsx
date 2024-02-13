@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { styleHelpers, styles, colors, fonts } from '@styles';
+import { styleHelpers } from '@styles';
 
 export default StyleSheet.create({
   container: {
@@ -20,9 +20,7 @@ export default StyleSheet.create({
   text: {
     fontSize: styleHelpers.fontSize(14),
   },
-  welcomeText: {
-
-  },
+  welcomeText: {},
   nameText: {
     fontWeight: 'bold',
   },

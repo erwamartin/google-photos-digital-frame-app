@@ -7,6 +7,7 @@ import GooglePhotos from '@services/google-photos';
 import User from '@services/user';
 
 import DashboardHeader from './component/DashboardHeader';
+import SlideshowSettings from './component/SlideshowSettings';
 
 import styles from './styles';
 
@@ -55,6 +56,7 @@ function DashboardScreen({ route, navigation }: PropsType) {
       style={styles.container}
     >
       <DashboardHeader navigation={navigation} />
+      <SlideshowSettings navigation={navigation} />
     </View>
   );
 };

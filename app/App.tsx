@@ -71,7 +71,7 @@ const App = () => {
             paddingBottom: skipBottomPadding ? 0 : insets.bottom,
             paddingLeft: insets.left,
             paddingRight: insets.right,
-            backgroundColor: colors.white,
+            backgroundColor: colors.whiteSmoke,
           }}
         >
           <Screen

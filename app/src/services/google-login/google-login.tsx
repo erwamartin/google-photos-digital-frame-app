@@ -38,6 +38,11 @@ class GoogleLogin {
 
   async getCurrentUserInfo(): Promise<UserInfo | null> {
     try {
+      const user = await GoogleSignin.getCurrentUser();
+      if (user?.idToken) {
+        await GoogleSignin.clearCachedAccessToken(user.idToken);
+      }
+
       const userInfo = await GoogleSignin.signInSilently();
       this.userInfo = userInfo;
       return this.userInfo;
@@ -53,6 +58,12 @@ class GoogleLogin {
 
   async getUserAccessToken() {
     try {
+      const user = await GoogleSignin.getCurrentUser();
+      if (user?.idToken) {
+        await GoogleSignin.clearCachedAccessToken(user.idToken);
+      }
+      await GoogleSignin.signInSilently();
+
       const tokens = await GoogleSignin.getTokens();
       return tokens.accessToken;
     } catch (error) {

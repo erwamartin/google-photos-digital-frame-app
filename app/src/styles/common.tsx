@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import * as styleHelpers from './helpers';
+import colors from './colors';
 
 export default StyleSheet.create({
   container: {
@@ -11,6 +12,6 @@ export default StyleSheet.create({
     paddingBottom: styleHelpers.scale(20),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.whiteSmoke,
   },
 });

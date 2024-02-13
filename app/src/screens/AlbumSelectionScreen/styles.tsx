@@ -34,7 +34,7 @@ export default StyleSheet.create({
     paddingTop: styleHelpers.scale(15, 0.2),
     paddingHorizontal: styleHelpers.scale(25),
     paddingBottom: styleHelpers.scale(25, 0.2),
-    backgroundColor: colors.white,
+    backgroundColor: colors.whiteSmoke,
   },
   saveButton: {
     width: '100%',
@@ -47,6 +47,6 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: styleHelpers.fontSize(16),
     fontWeight: '600',
-    color: colors.white,
+    color: colors.whiteSmoke,
   },
 });
